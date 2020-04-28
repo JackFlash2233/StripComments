@@ -2,38 +2,39 @@
 
 namespace StripComments
 {
-    class Program
+    class Program : Menu
     {
-
-        public static string StripComments(string text, string[] commentSymbols)
-        {
-            string[] words = text.Split("\n");
-
-            for (int i = 0; i < commentSymbols.Length; i++)
-            {
-                for (int j = 0; j < words.Length; j++)
-                {
-
-                    int tmp = words[j].IndexOf(commentSymbols[i]);
-
-                    if (tmp >= 0)
-                    {
-                        words[j] = words[j].Substring(0, tmp).Trim();
-                    }
-
-                }
-
-            }
-
-            return String.Join("\n", words);
-
-        }
-
+        
         static void Main(string[] args)
         {
+            Console.WriteLine("Strip Comments");
+            Console.WriteLine("_____________________________________________________________\n");
+            Console.WriteLine("This is the solution which which strips all text \nthat allows any of a set of comments markers passed in.\nAny whitespace at the end of the line will be stripped out.");
 
-            Console.WriteLine(StripComments("apples, pears # and bananas\ngrapes\nbananas !apples", new string[] { "#", "!" }));
-            Console.WriteLine(StripComments("a #b\nc\nd $e f g", new string[] { "#", "$" }));
+            MainMenu();
+
+            bool f = false;
+
+            while (f == false)
+            {
+                int tmp = Convert.ToInt32(Console.ReadLine());
+
+                switch (tmp)
+                {
+                    case 1:
+                        Task();
+                        MainMenu();
+                        break;
+                    case 2:
+                        ShowTests();
+                        MainMenu();
+                        break;
+                    case 3:
+                        f = true;
+                        break;
+                }
+            }
+            
 
         }
 
