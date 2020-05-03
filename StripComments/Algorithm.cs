@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace StripComments
 {
-    class Algorithm
+    public class Algorithm
     {
         public static string StripComments(string text, string[] commentSymbols)
         {

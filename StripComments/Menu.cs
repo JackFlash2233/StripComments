@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace StripComments
 {
-    class Menu : Algorithm
+    public class Menu : Algorithm
     {
         public static void MainMenu()
         {
@@ -24,21 +23,21 @@ namespace StripComments
             Console.WriteLine("apples, pears # and bananas\ngrapes\nbananas !apples");
             Console.WriteLine("Comment Symbols: \"#\", \"!\" \n");
             Console.WriteLine("Results:");
-            Console.WriteLine(StripComments("apples, pears # and bananas\ngrapes\nbananas !apples", new string[] { "#", "!" }));
+            Console.WriteLine(StripComments("apples, pears # and bananas\ngrapes\nbananas !apples", new[] { "#", "!" }));
             Console.WriteLine("\n.............................................................");
             Console.WriteLine("Test2:");
             Console.WriteLine("Text:");
             Console.WriteLine("a #b\nc\nd $e f g");
             Console.WriteLine("Comment Symbols: \"#\", \"$\" \n");
             Console.WriteLine("Results:");
-            Console.WriteLine(StripComments("a #b\nc\nd $e f g", new string[] { "#", "$" }));
+            Console.WriteLine(StripComments("a #b\nc\nd $e f g", new[] { "#", "$" }));
             Console.WriteLine("\n.............................................................");
             Console.WriteLine("Test3:");
             Console.WriteLine("Text:");
             Console.WriteLine("string1\nstring2%with symbols\nstring3 with some text ^  comments ");
             Console.WriteLine("Comment Symbols: \"%\", \"^\" \n");
             Console.WriteLine("Results:");
-            Console.WriteLine(StripComments("string1\nstring2%with symbols\nstring3 with some text ^  comments ", new string[] { "%", "^" }));
+            Console.WriteLine(StripComments("string1\nstring2%with symbols\nstring3 with some text ^  comments ", new[] { "%", "^" }));
             Console.WriteLine("\n_____________________________________________________________");
         }
 
