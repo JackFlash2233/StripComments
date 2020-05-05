@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 
 namespace StripComments
@@ -8,9 +9,11 @@ namespace StripComments
         public static void MainMenu()
         {
             Console.WriteLine("_____________________________________________________________\n");
-            Console.WriteLine("1. Strip comments");
-            Console.WriteLine("2. Show tests");
-            Console.WriteLine("3. Exit");
+            Console.WriteLine("1. Strip comments(part 1)");
+            Console.WriteLine("2. Show tests (part 1)");
+            Console.WriteLine("3. Outputs from DB (last 5) (part 2)");
+            Console.WriteLine("4. Input To Data Base new data (part 2)");
+            Console.WriteLine("5. Exit");
             Console.WriteLine("\n_____________________________________________________________");
 
         }
@@ -67,7 +70,7 @@ namespace StripComments
                 Console.WriteLine("\n_____________________________________________________________");
 
                 Console.WriteLine("_____________________________________________________________\n");
-                Console.WriteLine("Input comment symbol");
+                Console.WriteLine("Input comment symbol(Press Ctrl + Z to exit)");
                 string[] commentSymbols = new string[2];
                 string sym;
                 int k = 0;
@@ -81,6 +84,7 @@ namespace StripComments
                     }
 
                 } while (sym != null);
+
                 Console.WriteLine("\n_____________________________________________________________");
 
                 Console.WriteLine("_____________________________________________________________\n");
@@ -98,6 +102,51 @@ namespace StripComments
 
             }
 
+
         }
+
+        public static void FromDb()
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                Console.WriteLine("_____________________________________________________________\n");
+                Console.WriteLine("Table InputText :");
+                var inputTexts = db.InputTexts
+                    .OrderByDescending(i => i.InputTextId)
+                    .Take(5)
+                    .ToList();
+                foreach (var tmpInputText in inputTexts)
+                {
+                    Console.WriteLine($"{tmpInputText.InputTextId}:{tmpInputText.Text}");
+                }
+                Console.WriteLine("_____________________________________________________________\n");
+
+                Console.WriteLine("Table InputSymbol :");
+                var inputSymbols = db.InputSymbols
+                    .OrderByDescending(i => i.InputSymbolId)
+                    .Take(5)
+                    .ToList();
+                foreach (var tmpInputSymbol in inputSymbols)
+                {
+                    Console.WriteLine($"{tmpInputSymbol.InputSymbolId}:{tmpInputSymbol.Symbol}");
+                }
+                Console.WriteLine("_____________________________________________________________\n");
+
+                Console.WriteLine("Table Output :");
+                var outputTexts = db.Outputs
+                    .OrderByDescending(i => i.OutputId)
+                    .Take(5)
+                    .ToList();
+                foreach (var tmpOutputs in outputTexts)
+                {
+                    Console.WriteLine($"{tmpOutputs.OutputId}:{tmpOutputs.OutputText}");
+                }
+                Console.WriteLine("_____________________________________________________________\n");
+
+
+
+            }
+        }
+
     }
 }
