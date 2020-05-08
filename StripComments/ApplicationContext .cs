@@ -26,8 +26,7 @@ namespace StripComments
                 {
                     new InputText {InputTextId = 1, Text = "apples, pears # and bananas\ngrapes\nbananas !apples"},
                     new InputText {InputTextId = 2, Text = "a #b\nc\nd $e f g"}, 
-                    new InputText {InputTextId = 3, Text = "string1\nstring2%with symbols\nstring3 with some text ^  comments "} 
-
+                    new InputText {InputTextId = 3, Text = "string1\nstring2%with symbols\nstring3 with some text ^  comments "}
                 }
             );
 
@@ -37,7 +36,6 @@ namespace StripComments
                     new InputSymbol {InputSymbolId = 1, Symbol = "[\"#\",\"!\"]"},
                     new InputSymbol {InputSymbolId = 2, Symbol = "[\"#\",\"$\"]"},
                     new InputSymbol {InputSymbolId = 3, Symbol = "[\"%\",\"^\"]"},
-                    new InputSymbol {InputSymbolId = 4, Symbol = "[\"#\",\"%\"]"}
                 }
             );
 

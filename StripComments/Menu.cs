@@ -99,7 +99,6 @@ namespace StripComments
                 {
                     fin = true;
                 }
-
             }
 
 
