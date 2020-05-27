@@ -3,7 +3,7 @@
 namespace StripComments
 {
     
-    public class Program : Menu 
+    public class Program 
     {
         
         static void Main()
@@ -13,7 +13,7 @@ namespace StripComments
             Console.WriteLine("_____________________________________________________________\n");
             Console.WriteLine("This is the solution which which strips all text \nthat allows any of a set of comments markers passed in.\nAny whitespace at the end of the line will be stripped out.");
 
-            MainMenu();
+            Menu.MainMenu();
 
             bool f = false;
 
@@ -24,29 +24,26 @@ namespace StripComments
                 switch (tmp)
                 {
                     case 1:
-                        Task();
-                        MainMenu();
+                        Menu.Task();
+                        Menu.MainMenu();
                         break;
                     case 2:
-                        ShowTests();
-                        MainMenu();
+                        Menu.ShowTests();
+                        Menu.MainMenu();
                         break;
                     case 3:
-                        FromDb();
-                        MainMenu();
+                        Menu.FromDb();
+                        Menu.MainMenu();
                         break;
                     case 4:
                         ToDb.InsertToDb();
-                        MainMenu();
+                        Menu.MainMenu();
                         break;
                     case 5:
                         f = true;
                         break;
                 }
             }
-                     
-
-
         }
     }
 }

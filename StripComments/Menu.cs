@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
+using ClassLibrary;
 
 
 namespace StripComments
 {
-    public class Menu : Algorithm
+    public class Menu 
     {
         public static void MainMenu()
         {
@@ -26,21 +27,21 @@ namespace StripComments
             Console.WriteLine("apples, pears # and bananas\ngrapes\nbananas !apples");
             Console.WriteLine("Comment Symbols: \"#\", \"!\" \n");
             Console.WriteLine("Results:");
-            Console.WriteLine(StripComments("apples, pears # and bananas\ngrapes\nbananas !apples", new[] { "#", "!" }));
+            Console.WriteLine(Algorithm.StripComments("apples, pears # and bananas\ngrapes\nbananas !apples",  "# !"));
             Console.WriteLine("\n.............................................................");
             Console.WriteLine("Test2:");
             Console.WriteLine("Text:");
             Console.WriteLine("a #b\nc\nd $e f g");
             Console.WriteLine("Comment Symbols: \"#\", \"$\" \n");
             Console.WriteLine("Results:");
-            Console.WriteLine(StripComments("a #b\nc\nd $e f g", new[] { "#", "$" }));
+            Console.WriteLine(Algorithm.StripComments("a #b\nc\nd $e f g",  "# $" ));
             Console.WriteLine("\n.............................................................");
             Console.WriteLine("Test3:");
             Console.WriteLine("Text:");
             Console.WriteLine("string1\nstring2%with symbols\nstring3 with some text ^  comments ");
             Console.WriteLine("Comment Symbols: \"%\", \"^\" \n");
             Console.WriteLine("Results:");
-            Console.WriteLine(StripComments("string1\nstring2%with symbols\nstring3 with some text ^  comments ", new[] { "%", "^" }));
+            Console.WriteLine(Algorithm.StripComments("string1\nstring2%with symbols\nstring3 with some text ^  comments ",  "% ^" ));
             Console.WriteLine("\n_____________________________________________________________");
         }
 
@@ -70,26 +71,14 @@ namespace StripComments
                 Console.WriteLine("\n_____________________________________________________________");
 
                 Console.WriteLine("_____________________________________________________________\n");
-                Console.WriteLine("Input comment symbol(Press Ctrl + Z to exit)");
-                string[] commentSymbols = new string[2];
-                string sym;
-                int k = 0;
-                do
-                {
-                    sym = Console.ReadLine();
-                    if (sym != null)
-                    {
-                        commentSymbols[k] = sym;
-                        k++;
-                    }
-
-                } while (sym != null);
+                Console.WriteLine("Input comment symbol(Input by space)");
+                string commentSymbols = Console.ReadLine();
 
                 Console.WriteLine("\n_____________________________________________________________");
 
                 Console.WriteLine("_____________________________________________________________\n");
                 Console.WriteLine("Result:");
-                Console.WriteLine(StripComments(text, commentSymbols));
+                Console.WriteLine(Algorithm.StripComments(text, commentSymbols));
                 Console.WriteLine("\n_____________________________________________________________");
                 Console.WriteLine("_____________________________________________________________\n");
                 Console.WriteLine("Again? 1 - Yes; 2 - No");
@@ -100,52 +89,33 @@ namespace StripComments
                     fin = true;
                 }
             }
-
-
         }
 
         public static void FromDb()
         {
-            using (ApplicationContext db = new ApplicationContext())
+
+            
+
+            using (DataContext db = new DataContext())
             {
                 Console.WriteLine("_____________________________________________________________\n");
-                Console.WriteLine("Table InputText :");
-                var inputTexts = db.InputTexts
-                    .OrderByDescending(i => i.InputTextId)
+                Console.WriteLine("Table Data:");
+
+                var datas = db.Datas
+                    .OrderByDescending(i => i.DataId)
                     .Take(5)
                     .ToList();
-                foreach (var tmpInputText in inputTexts)
+                foreach (var tmpData in datas)
                 {
-                    Console.WriteLine($"{tmpInputText.InputTextId}:{tmpInputText.Text}");
+                    Console.WriteLine($"{tmpData.DataId}: InputText:\n" +
+                                      $"{tmpData.InputText}\n" +
+                                      "Comment Symbol\n" +
+                                      $"{tmpData.CommentSymbol}\n" +
+                                      "OutputText:\n" +
+                                      $"{tmpData.OutputText}\n");
                 }
                 Console.WriteLine("_____________________________________________________________\n");
-
-                Console.WriteLine("Table InputSymbol :");
-                var inputSymbols = db.InputSymbols
-                    .OrderByDescending(i => i.InputSymbolId)
-                    .Take(5)
-                    .ToList();
-                foreach (var tmpInputSymbol in inputSymbols)
-                {
-                    Console.WriteLine($"{tmpInputSymbol.InputSymbolId}:{tmpInputSymbol.Symbol}");
-                }
-                Console.WriteLine("_____________________________________________________________\n");
-
-                Console.WriteLine("Table Output :");
-                var outputTexts = db.Outputs
-                    .OrderByDescending(i => i.OutputId)
-                    .Take(5)
-                    .ToList();
-                foreach (var tmpOutputs in outputTexts)
-                {
-                    Console.WriteLine($"{tmpOutputs.OutputId}:{tmpOutputs.OutputText}");
-                }
-                Console.WriteLine("_____________________________________________________________\n");
-
-
-
             }
         }
-
     }
 }

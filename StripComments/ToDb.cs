@@ -1,14 +1,14 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+using ClassLibrary;
+
 
 namespace StripComments
 {
-    class ToDb : Algorithm
+    class ToDb 
     {
         public static void InsertToDb()
         {
-            using (ApplicationContext db = new ApplicationContext())
+            using (DataContext db = new DataContext())
             {
 
                 Console.WriteLine("Input your text(Press Ctrl + Z to exit)");
@@ -26,35 +26,31 @@ namespace StripComments
                     }
 
                 } while (line != null);
-                db.Database.ExecuteSqlRaw("INSERT INTO InputTexts (Text) VALUES ({0})", text);
+                //db.Database.ExecuteSqlRaw("INSERT INTO InputTexts (Text) VALUES ({0})", text);
                 Console.WriteLine("\n_____________________________________________________________");
 
 
                 Console.WriteLine("_____________________________________________________________\n");
-                Console.WriteLine("Input comment symbol(Press Ctrl + Z to exit)");
-                string[] commentSymbols = new string[2];
-                string sym;
-                int k = 0;
-                do
-                {
-                    sym = Console.ReadLine();
-                    if (sym != null)
-                    {
-                        commentSymbols[k] = sym;
-                        k++;
-                    }
+                Console.WriteLine("Input comment symbol(Input by space)");
+                string commentSymbols = Console.ReadLine();
+                
 
-                } while (sym != null);
-
-                var jsymbols = JsonConvert.SerializeObject(commentSymbols);
-                db.Database.ExecuteSqlRaw("INSERT INTO InputSymbols (Symbol) VALUES ({0})", jsymbols);
+                //db.Database.ExecuteSqlRaw("INSERT INTO CommentSymbol (Symbol) VALUES ({0})", commentSymbols);
                 Console.WriteLine("\n_____________________________________________________________");
 
                 Console.WriteLine("_____________________________________________________________\n");
                 Console.WriteLine("Result:");
-                string result = StripComments(text, commentSymbols);
+                string result = Algorithm.StripComments(text, commentSymbols);
                 Console.WriteLine(result);
-                db.Database.ExecuteSqlRaw("INSERT INTO Outputs (OutputText) VALUES ({0})", result);
+                //db.Database.ExecuteSqlRaw("INSERT INTO OutputText (OutputText) VALUES ({0})", result);
+                Data data = new Data
+                {
+                    InputText = text,
+                    CommentSymbol = commentSymbols,
+                    OutputText = result
+                };
+                db.Datas.Add(data);
+                db.SaveChanges();
                 Console.WriteLine("\n_____________________________________________________________");
                 Console.WriteLine("_____________________________________________________________\n");
             }
